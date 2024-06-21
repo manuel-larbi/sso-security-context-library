@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.manuel</groupId>
   <artifactId>sso-security-context</artifactId>
-  <version>1.1.0</version>
+  <version>1.0</version>
   <name>Archetype - sso-security-context</name>
   <url>https://maven.apache.org</url>
 
