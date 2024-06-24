@@ -28,4 +28,10 @@ public class CustomContextHolderAutoConfig {
     RegisterHandler registerHandler(CustomHandlerInterceptor customHandlerInterceptor){
         return new RegisterHandler(customHandlerInterceptor);
     }
+
+    @Bean
+    @ConditionalOnMissingBean
+    public CustomGraphQlInterceptor customGraphQlInterceptor(CustomContextHolder customContextHolder){
+        return new CustomGraphQlInterceptor(customContextHolder);
+    }
 }
