@@ -18,11 +18,36 @@ import java.util.List;
 import java.util.Optional;
 
 @Component
-public class CustomSecurityContextHolderImpl implements CustomContextHolder {
+public class CustomContextHolderImpl implements CustomContextHolder {
     private final ApplicationContext applicationContext;
+    private String prefix;
+    private String repoName;
+    private String methodName;
+    private static String accessLevelFieldName;
+    private static String permissionsFieldName;
 
-    public CustomSecurityContextHolderImpl(ApplicationContext applicationContext) {
+    public CustomContextHolderImpl(ApplicationContext applicationContext) {
         this.applicationContext = applicationContext;
+    }
+
+    public void setPrefix(String prefix) {
+        this.prefix = prefix;
+    }
+
+    public void setRepoName(String repoName) {
+        this.repoName = repoName;
+    }
+
+    public void setMethodName(String methodName) {
+        this.methodName = methodName;
+    }
+
+    public static void setAccessLevelFieldName(String accessLevelFieldName) {
+        CustomContextHolderImpl.accessLevelFieldName = accessLevelFieldName;
+    }
+
+    public static void setPermissionsFieldName(String permissionsFieldName) {
+        CustomContextHolderImpl.permissionsFieldName = permissionsFieldName;
     }
 
     /**
@@ -30,7 +55,7 @@ public class CustomSecurityContextHolderImpl implements CustomContextHolder {
      */
     @Transactional
     @Override
-    public SecurityContext getContext(String prefix, String repoName, String methodName) {
+    public SecurityContext getContext() {
         Jwt token = (Jwt) SecurityContextHolder
                 .getContext()
                 .getAuthentication()
@@ -55,7 +80,11 @@ public class CustomSecurityContextHolderImpl implements CustomContextHolder {
                                     Field name = permission.getClass().getDeclaredField("name");
                                     name.setAccessible(true);
 
-                                    authorities.add(new SimpleGrantedAuthority(name.get(permission).toString()));
+                                    String p = name.get(permission).toString();
+
+                                    authorities.add(new SimpleGrantedAuthority(
+                                            prefix.isEmpty() ? p : prefix+p
+                                    ));
                                 }
                             }
                         }
@@ -75,12 +104,12 @@ public class CustomSecurityContextHolderImpl implements CustomContextHolder {
         Object o = result.orElse(null);
 
         assert o != null;
-        Field accessLevelField = o.getClass().getDeclaredField("accessLevel");
-        accessLevelField.setAccessible(true);
-        Object accessLevelObject = accessLevelField.get(o);
+        Field a = o.getClass().getDeclaredField(accessLevelFieldName);
+        a.setAccessible(true);
+        Object accessLevelObject = a.get(o);
 
-        Field permissionsField = accessLevelObject.getClass().getDeclaredField("permissions");
-        permissionsField.setAccessible(true);
-        return permissionsField.get(accessLevelObject);
+        Field p = accessLevelObject.getClass().getDeclaredField(permissionsFieldName);
+        p.setAccessible(true);
+        return p.get(accessLevelObject);
     }
 }

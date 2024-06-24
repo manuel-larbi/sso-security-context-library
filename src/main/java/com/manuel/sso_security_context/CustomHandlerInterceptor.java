@@ -2,25 +2,28 @@ package com.manuel.sso_security_context;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.context.ApplicationContext;
 import org.springframework.lang.NonNull;
-import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
-import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
+
+import static com.manuel.sso_security_context.CustomContextHolderImpl.setAccessLevelFieldName;
+import static com.manuel.sso_security_context.CustomContextHolderImpl.setPermissionsFieldName;
 
 
 @Component
 public class CustomHandlerInterceptor implements HandlerInterceptor {
-    private final CustomContextHolder customContextHolder;
+    private final ApplicationContext applicationContext;
+    private final ContextConfig contextConfig;
 
-    public CustomHandlerInterceptor(CustomContextHolder customContextHolder) {
-        this.customContextHolder = customContextHolder;
+    public CustomHandlerInterceptor(ApplicationContext applicationContext, ContextConfig contextConfig) {
+        this.applicationContext = applicationContext;
+        this.contextConfig = contextConfig;
     }
 
     /**
      * This class is a HandlerInterceptor that intercepts the execution of handler methods.
-     * It checks if the handler method is annotated with {@link CustomSecurityContext}.
      * If it is, it retrieves the custom security context from the {@link CustomContextHolder}
      * and sets it in the {@link SecurityContextHolder}.
      *
@@ -28,19 +31,18 @@ public class CustomHandlerInterceptor implements HandlerInterceptor {
      * @param response the HTTP response
      * @param handler  the handler method
      * @return true if the handler method should be executed, false otherwise
-     * @throws Exception if an error occurs during the interception process
      */
     @Override
-    public boolean preHandle(@NonNull HttpServletRequest request,@NonNull HttpServletResponse response,@NonNull Object handler) throws Exception {
-        if (handler instanceof HandlerMethod handlerMethod) {
-            Class<?> handlerClass = handlerMethod.getBeanType();
-            CustomSecurityContext classAnnotation = handlerClass.getAnnotation(CustomSecurityContext.class);
+    public boolean preHandle(@NonNull HttpServletRequest request,@NonNull HttpServletResponse response,@NonNull Object handler) {
+        CustomContextHolderImpl c = new CustomContextHolderImpl(applicationContext);
+        c.setRepoName(contextConfig.repoName());
+        c.setPrefix(contextConfig.prefix());
+        c.setMethodName(contextConfig.methodName());
+        setAccessLevelFieldName(contextConfig.accessLevelFieldName());
+        setPermissionsFieldName(contextConfig.permissionsFieldName());
 
-            if (classAnnotation != null) {
-                SecurityContext customContext = customContextHolder.getContext(classAnnotation.prefix(), classAnnotation.repoName(), classAnnotation.methodName());
-                SecurityContextHolder.setContext(customContext);
-            }
-        }
+        SecurityContextHolder.setContext(c.getContext());
+
         return true;
     }
 
