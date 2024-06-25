@@ -126,5 +126,4 @@ public class TestSecurityConfig {
 
 - That's it, you are good to go.
 
-- To confirm if the authorities have been set successfully in the `SecurityContext`, you can log the `Authentication` object
-    > SecurityContextHolder.getContext().getAuthentication()
+- To confirm if the authorities have been set successfully in the `SecurityContext`, you can log the `Authentication` object `SecurityContextHolder.getContext().getAuthentication()`.
