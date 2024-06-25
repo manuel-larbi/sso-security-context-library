@@ -15,9 +15,9 @@ The blueprint is designed to be used by developers to configure the security con
 
 - Download the zip file 
 - Extract it to the org directory located in your local maven repository 
-    > C:\Users\your-user\.m2\repository\org
+    > C:\Users\your-user\ .m2\repository\org
 - Go to your project and add it as a dependency
-```java
+```xml
 <dependency>
     <groupId>org.manuel</groupId>
     <artifactId>sso-security-context</artifactId>
