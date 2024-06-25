@@ -8,7 +8,6 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -53,7 +52,6 @@ public class CustomContextHolderImpl implements CustomContextHolder {
     /**
      * @return {@link SecurityContext}
      */
-    @Transactional
     @Override
     public SecurityContext getContext() {
         Jwt token = (Jwt) SecurityContextHolder
