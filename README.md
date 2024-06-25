@@ -73,7 +73,7 @@ public class Application {
 
 ### OAuth2 Configuration
 
-This library uses Springs OAuth2 Resource Server. The public key should be stated in the `yaml` or `application.properties` file
+This library uses Springs OAuth2 Resource Server. The public key location should be stated in the `application.yaml` or `application.properties` file
 
 ```yaml
 spring:
