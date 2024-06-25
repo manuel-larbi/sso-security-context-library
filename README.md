@@ -33,9 +33,9 @@ The blueprint is designed to be used by developers to configure the security con
 - Return a new instance `ContextConfig` with these required args in `camelCase`:
   - `repositoryName`: The name of the repository to fetch the user record.
   
-  - `methodName`: The method to call on the `repository`. 
-        > The method should take the `user_id` of type `long`.
-  - `prefix`: e.g. `ROLE_`, `SCOPE_` if not necessary and empty string can be used
+  - `methodName`: The method to call on the `repository`.
+    > The method should take the `user_id` of type `long`.
+  - `prefix`: e.g. `ROLE_`, `SCOPE_` if not necessary an empty string can be used
   
   - `accessLevelFieldName`:  The field name of the access level defined in the parent class.
 
@@ -73,7 +73,7 @@ public class Application {
 
 ### OAuth2 Configuration
 
-This library uses Springs OAuth2 Resource Server. The public should be stated in the `yaml` or `application.properties` file
+This library uses Springs OAuth2 Resource Server. The public key should be stated in the `yaml` or `application.properties` file
 
 ```yaml
 spring:
@@ -81,7 +81,7 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          public-key-location: classpath:auth.pem
+          public-key-location: classpath:<your-public-key-file>
 ```
 ```
 spring.security.oauth2.resourceserver.jwt.public-key-location=classpath:<your-public-key-file>
@@ -94,7 +94,7 @@ spring.security.oauth2.resourceserver.jwt.public-key-location=classpath:<your-pu
 )
 ```
 
-#### Example
+#### Example SecurityFilterChain Configuration
 ```java
 package org.somepackage;
 
