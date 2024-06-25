@@ -13,7 +13,7 @@ The blueprint is designed to be used by developers to configure the security con
 ## Setup Guidelines
 ### Adding the dependency locally
 
-- Download the zip file 
+- Download the zip file [Security Context File](https://github.com/manuel-larbi/sso-security-context-library/releases/download/v1.0-beta/1.0-global.zip)
 - Extract it to the org directory located in your local maven repository 
     > C:\Users\your-user\ .m2\repository\org
 - Go to your project and add it as a dependency
