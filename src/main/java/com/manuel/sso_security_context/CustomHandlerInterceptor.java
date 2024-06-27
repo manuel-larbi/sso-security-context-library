@@ -11,6 +11,16 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import static com.manuel.sso_security_context.CustomContextHolderImpl.setAccessLevelFieldName;
 import static com.manuel.sso_security_context.CustomContextHolderImpl.setPermissionsFieldName;
 
+/**
+ * This class is a HandlerInterceptor that intercepts the execution of handler methods.
+ * If it is, it retrieves the custom security context from the {@link CustomContextHolder}
+ * and sets it in the {@link SecurityContextHolder}.
+ *
+ * @author Manuel
+ * @version 1.0
+ * @see CustomContextHolder
+ * @see SecurityContextHolder
+ */
 
 @Component
 public class CustomHandlerInterceptor implements HandlerInterceptor {
