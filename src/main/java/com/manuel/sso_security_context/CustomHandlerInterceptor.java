@@ -21,12 +21,17 @@ import static com.manuel.sso_security_context.CustomContextHolderImpl.setPermiss
  * @see CustomContextHolder
  * @see SecurityContextHolder
  */
-
 @Component
 public class CustomHandlerInterceptor implements HandlerInterceptor {
     private final ApplicationContext applicationContext;
     private final ContextConfig contextConfig;
 
+    /**
+     * Instantiates a new Custom handler interceptor.
+     *
+     * @param applicationContext the application context
+     * @param contextConfig      the context config
+     */
     public CustomHandlerInterceptor(ApplicationContext applicationContext, ContextConfig contextConfig) {
         this.applicationContext = applicationContext;
         this.contextConfig = contextConfig;

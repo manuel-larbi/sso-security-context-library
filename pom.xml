@@ -1,17 +1,44 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>org.manuel</groupId>
+  <groupId>io.github.manu-tech-code</groupId>
   <artifactId>sso-security-context</artifactId>
   <version>1.0-global</version>
   <name>Archetype - sso-security-context</name>
   <url>https://maven.apache.org</url>
 
+  <description>
+    SSO Security Context Library
+  </description>
+
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>17</maven.compiler.source>
     <maven.compiler.target>17</maven.compiler.target>
+    <gpg.keyname>0x705D982A</gpg.keyname>
   </properties>
+
+  <scm>
+    <url>https://github.com/manuel-larbi/sso-security-context-library</url>
+    <connection>scm:git:git://github.com/manuel-larbi/sso-security-context-library.git</connection>
+    <developerConnection>scm:git:ssh://github.com:manuel-larbi/sso-security-context-library.git</developerConnection>
+  </scm>
+
+  <licenses>
+    <license>
+      <name>The Apache License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+
+  <developers>
+    <developer>
+      <id>manuel</id>
+      <name>Emmanuel Larbi</name>
+      <email>ekwabena57@gmail.com</email>
+    </developer>
+  </developers>
 
   <dependencies>
     <dependency>
@@ -33,4 +60,61 @@
       <version>3.3.0</version>
     </dependency>
   </dependencies>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.sonatype.central</groupId>
+        <artifactId>central-publishing-maven-plugin</artifactId>
+        <version>0.5.0</version>
+        <extensions>true</extensions>
+        <configuration>
+          <publishingServerId>central</publishingServerId>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>3.3.1</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-source-plugin</artifactId>
+        <version>3.2.1</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-gpg-plugin</artifactId>
+        <version>3.2.5</version>
+        <executions>
+          <execution>
+            <id>sign-artifacts</id>
+            <phase>verify</phase>
+            <goals>
+              <goal>sign</goal>
+            </goals>
+<!--            <configuration>-->
+<!--              <gpgArguments>-->
+<!--                <arg>&#45;&#45;pinentry-mode</arg>-->
+<!--                <arg>loopback</arg>-->
+<!--              </gpgArguments>-->
+<!--            </configuration>-->
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
 </project>
