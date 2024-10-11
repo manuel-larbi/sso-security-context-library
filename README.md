@@ -5,17 +5,17 @@ It helps developers streamline the security context setup
 and minimize the boilerplate code required for configuring security,
 particularly when working with JWT.
 
-> These are the requirements that must be met to be able to use this library effectively
+## Prerequisites
+> To use this library effectively, the following requirements must be met:
 
-- There should be a `Class` to manage `Users`.
-- There should be a `Class` to manage `AccessLevels`.
-- There should be a `Class` to manage `Permissions`.
-
+- A `User` management class must be present. 
+- An `AccessLevel` management class is required.
+- A `Permission` management class must be implemented.
 
 ## Setup Guidelines
-### Adding the dependency locally
+### Adding the dependency
 
-- Add the dependency
+- Include the following Maven dependency in your `pom.xml`:
 ```xml
 <dependency>
   <groupId>io.github.manu-tech-code</groupId>
@@ -26,20 +26,15 @@ particularly when working with JWT.
 
 ### Bean Configuration
 
-- Create a `@Bean` of type `ContextConfig`
+- To configure the library, you need to create a `@Bean` of type `ContextConfig`.
 
-- Return a new instance `ContextConfig` with these required args in `camelCase`:
-  - `repositoryName`: The name of the repository to fetch the user record.
-  
-  - `methodName`: The method to call on the `repository`.
-    > The method should take the `user_id` of type `long`.
-  - `prefix`: e.g. `ROLE_`, `SCOPE_` if not necessary an empty string can be used
-  
-  - `accessLevelFieldName`:  The field name of the access level defined in the parent class.
+* Repository Name (`repositoryName`): The name of the repository to fetch the user records.
+* Method Name (`methodName`): The method in the repository that retrieves the user by ID (should accept `user_id` of type `long`).
+* Prefix (`prefix`): Prefix for roles (e.g., `ROLE_`, `SCOPE_`); if not needed, use an empty string.
+* Access Level Field (`accessLevelFieldName`): The field name representing access levels in the parent class.
+* Permissions Field (`permissionsFieldName`): The field name representing permissions in the AccessLevel class.
 
-  - `permissionsFieldName`: The field name of the permissions defined in the AccessLevel Class.
-
-> Example of `@Bean` Declaration in project main class
+> Example of `@Bean` Declaration in Main class
 
 ```java
 package org.somepackage;
@@ -72,8 +67,10 @@ public class Application {
 
 ### OAuth2 Configuration
 
-This library uses Springs OAuth2 Resource Server. The public key location should be stated in the `application.yaml` or `application.properties` file
+This library integrates with **Spring's OAuth2 Resource Server**.
+You need to specify the location of your public key in the `application.yaml` or `application.properties` file.
 
+#### Example configuration for `application.yaml`:
 ```yaml
 spring:
   security:
@@ -82,18 +79,19 @@ spring:
         jwt:
           public-key-location: classpath:<your-public-key-file>
 ```
+#### For `application.properties`:
 ```
 spring.security.oauth2.resourceserver.jwt.public-key-location=classpath:<your-public-key-file>
 ```
 
-- Your `SecurityFilterChain` config should include the following
+- Ensure your SecurityFilterChain configuration includes:
 ```
 .oauth2ResourceServer(oauth -> oauth
       .jwt(Customizer.withDefaults())
 )
 ```
 
-#### Example SecurityFilterChain Configuration
+#### Example `SecurityFilterChain` Configuration
 ```java
 package org.somepackage;
 
@@ -122,7 +120,12 @@ public class TestSecurityConfig {
     }
 }
 ```
+### Verifying Security Context
 
-- That's it, you are good to go.
-
-- To confirm if the authorities have been set successfully in the `SecurityContext`, you can log the `Authentication` object `SecurityContextHolder.getContext().getAuthentication()`.
+To confirm that authorities are correctly set in the `SecurityContext`, you can log the `Authorities` from the `Authentication` object using:
+```java
+Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+if (authentication != null) {
+    logger.info("Authorities: {}", authentication.getAuthorities());
+}
+```
