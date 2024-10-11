@@ -6,11 +6,13 @@ and minimize the boilerplate code required for configuring security,
 particularly when working with JWT.
 
 ## Prerequisites
-> To use this library effectively, the following requirements must be met:
+> To use this library effectively, the following components must be implemented to manage user roles and access control:
 
-- A `User` management class must be present. 
-- An `AccessLevel` management class is required.
-- A `Permission` management class must be implemented.
+- A class to manage users in the system, handling user profiles and their associated roles.
+- A class to manage access levels that defines various roles (e.g., 'Admin', 'Editor', 'Viewer') assigned to users, determining their level of access.
+- A class to manage permissions that specifies actions (e.g., 'read', 'write', 'delete') and associates these actions with the corresponding access levels.
+
+These components work together to establish a robust access control system, where each user is linked to an access level that determines their available permissions.
 
 ## Setup Guidelines
 ### Adding the dependency
