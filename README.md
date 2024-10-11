@@ -55,11 +55,11 @@ public class Application {
     @Bean
     ContextConfig contextConfig() {
         return new ContextConfig(
-                "employeeRepository",
-                "findByUserId",
-                "ROLE_",
-                "accessLevel",
-                "permissions"
+                "employeeRepository",   // Repository name
+                "findByUserId",         // Method to find user by ID
+                "ROLE_",                // role prefix: this is optional 
+                "accessLevel",          // Field for access level
+                "permissions"           // Field for permissions defined in access level class
         );
     }
 }
