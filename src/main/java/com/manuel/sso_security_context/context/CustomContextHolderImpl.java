@@ -1,4 +1,4 @@
-package com.manuel.sso_security_context;
+package com.manuel.sso_security_context.context;
 
 import com.manuel.sso_security_context.exception.CustomContextException;
 import org.springframework.context.ApplicationContext;
@@ -26,7 +26,7 @@ import java.util.Optional;
  * @see SecurityContext
  */
 @Component
-public class CustomContextHolderImpl implements CustomContextHolder {
+public final class CustomContextHolderImpl implements CustomContextHolder {
 
     /**
      * The Spring {@link ApplicationContext} to retrieve beans.
@@ -158,7 +158,9 @@ public class CustomContextHolderImpl implements CustomContextHolder {
                 }
         );
 
-        SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(token, null, authorities));
+        SecurityContextHolder.getContext().setAuthentication(
+                new UsernamePasswordAuthenticationToken(
+                        token, null, authorities));
 
         return SecurityContextHolder.getContext();
     }

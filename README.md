@@ -1,7 +1,9 @@
 # Custom Security Context Library
-This library is tailored to target specific patterns I encountered during Spring Security configuration relating to access levels in `ARMS`.
-As at the development of this library, it only works for users using `Spring Boot` in `ARMS`.
-The blueprint is designed to be used by developers to configure the security context configuration and reduce the hassle of setting up the security configurations.
+This library is designed
+to target specific patterns for implementing Spring Security configurations related to access levels in your project.
+It helps developers streamline the security context setup
+and minimize the boilerplate code required for configuring security,
+particularly when working with JWT.
 
 > These are the requirements that must be met to be able to use this library effectively
 
@@ -13,16 +15,12 @@ The blueprint is designed to be used by developers to configure the security con
 ## Setup Guidelines
 ### Adding the dependency locally
 
-- Download the zip file [Security Context File](https://github.com/manuel-larbi/sso-security-context-library/releases/download/v1.0-beta/1.0-global.zip)
-- Extract it to the org directory located in your local maven repository 
-    > C:\Users\your-user\ .m2\repository\org
-- Go to your project and add it as a dependency
+- Add the dependency
 ```xml
 <dependency>
-    <groupId>org.manuel</groupId>
-    <artifactId>sso-security-context</artifactId>
-    <version>1.0-global</version>
-    <scope>compile</scope>
+  <groupId>io.github.manu-tech-code</groupId>
+  <artifactId>sso-security-context</artifactId>
+  <version>1.1</version>
 </dependency>
 ```
 
@@ -42,10 +40,11 @@ The blueprint is designed to be used by developers to configure the security con
   - `permissionsFieldName`: The field name of the permissions defined in the AccessLevel Class.
 
 > Example of `@Bean` Declaration in project main class
+
 ```java
 package org.somepackage;
 
-import com.manuel.sso_security_context.ContextConfig;
+import com.manuel.sso_security_context.context.ContextConfig;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -57,7 +56,7 @@ public class Application {
     }
 
     @Bean
-    ContextConfig contextConfig(){
+    ContextConfig contextConfig() {
         return new ContextConfig(
                 "employeeRepository",
                 "findByUserId",

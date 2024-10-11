@@ -3,19 +3,24 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>io.github.manu-tech-code</groupId>
   <artifactId>sso-security-context</artifactId>
-  <version>1.0-global</version>
+  <version>1.1</version>
   <name>Archetype - sso-security-context</name>
   <url>https://maven.apache.org</url>
 
   <description>
-    SSO Security Context Library
+    This library is designed
+    to target specific patterns
+    for implementing Spring Security configurations related to access levels in your project.
+    It helps developers streamline the security context setup
+    and minimize the boilerplate code required for configuring security,
+    particularly when working with JWT.
   </description>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>17</maven.compiler.source>
     <maven.compiler.target>17</maven.compiler.target>
-    <gpg.keyname>0x705D982A</gpg.keyname>
+    <gpg.keyname>0xAD559EF8</gpg.keyname>
   </properties>
 
   <scm>
@@ -45,13 +50,6 @@
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
       <version>3.3.0</version>
-    </dependency>
-
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.13.2</version>
-      <scope>test</scope>
     </dependency>
 
     <dependency>
@@ -106,12 +104,6 @@
             <goals>
               <goal>sign</goal>
             </goals>
-<!--            <configuration>-->
-<!--              <gpgArguments>-->
-<!--                <arg>&#45;&#45;pinentry-mode</arg>-->
-<!--                <arg>loopback</arg>-->
-<!--              </gpgArguments>-->
-<!--            </configuration>-->
           </execution>
         </executions>
       </plugin>

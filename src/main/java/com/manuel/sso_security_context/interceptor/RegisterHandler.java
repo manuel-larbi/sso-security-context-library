@@ -1,4 +1,4 @@
-package com.manuel.sso_security_context;
+package com.manuel.sso_security_context.interceptor;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;

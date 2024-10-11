@@ -1,5 +1,7 @@
-package com.manuel.sso_security_context;
+package com.manuel.sso_security_context.context;
 
+import com.manuel.sso_security_context.interceptor.CustomHandlerInterceptor;
+import com.manuel.sso_security_context.interceptor.RegisterHandler;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;

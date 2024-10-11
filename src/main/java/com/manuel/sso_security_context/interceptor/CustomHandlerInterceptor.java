@@ -1,5 +1,8 @@
-package com.manuel.sso_security_context;
+package com.manuel.sso_security_context.interceptor;
 
+import com.manuel.sso_security_context.context.ContextConfig;
+import com.manuel.sso_security_context.context.CustomContextHolder;
+import com.manuel.sso_security_context.context.CustomContextHolderImpl;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.context.ApplicationContext;
@@ -8,8 +11,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
-import static com.manuel.sso_security_context.CustomContextHolderImpl.setAccessLevelFieldName;
-import static com.manuel.sso_security_context.CustomContextHolderImpl.setPermissionsFieldName;
+import static com.manuel.sso_security_context.context.CustomContextHolderImpl.setAccessLevelFieldName;
+import static com.manuel.sso_security_context.context.CustomContextHolderImpl.setPermissionsFieldName;
 
 /**
  * This class is a HandlerInterceptor that intercepts the execution of handler methods.
@@ -22,7 +25,7 @@ import static com.manuel.sso_security_context.CustomContextHolderImpl.setPermiss
  * @see SecurityContextHolder
  */
 @Component
-public class CustomHandlerInterceptor implements HandlerInterceptor {
+public final class CustomHandlerInterceptor implements HandlerInterceptor {
     private final ApplicationContext applicationContext;
     private final ContextConfig contextConfig;
 
